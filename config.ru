@@ -1,6 +1,6 @@
 $LOAD_PATH << File.join(__dir__, 'app')
-require 'contlloers/app'
-require 'contlloers/api'
+require 'controllers/app'
+require 'controllers/api'
 
 url_root = ENV['RELATIVE_URL_ROOT'] || '/'
 

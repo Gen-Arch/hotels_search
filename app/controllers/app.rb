@@ -1,4 +1,4 @@
-require 'base'
+require 'controllers/base'
 
 class App < Base
   get '/' do

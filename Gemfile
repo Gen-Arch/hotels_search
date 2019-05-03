@@ -32,7 +32,11 @@ gem 'activesupport'
 gem 'procsd'
 
 #crawling
-gem 'nokogiri'
+gem 'selenium-webdriver'
+gem 'addressable'
+
+#cron task
+gem 'clockwork'
 
 
 # devlopment

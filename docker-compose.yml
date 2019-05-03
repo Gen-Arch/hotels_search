@@ -13,8 +13,8 @@ services:
       - '27017:27017'
 
   mongo-express:
-    container_name: mongo-express
-    image: mongo-express_hotels_search
+    image: mongo-express
+    container_name: mongo-express_hotels_search
     links:
       - 'mongodb:mongo'
     ports:

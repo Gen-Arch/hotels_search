@@ -1,5 +1,5 @@
 default: &default
-  database: <%= ENV['DATABASE'] %>
+  database: 'hotels_search'
   hosts:
     - localhost:27017
 

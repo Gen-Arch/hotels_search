@@ -1,15 +1,78 @@
-require 'open-uri'
-require 'nokogiri'
-# require 'capybara'
+require 'selenium-webdriver'
+require 'uri'
+require 'date'
+require 'addressable/uri'
 
-url = "https://www.jalan.net/130000/LRG_136200/SML_136205/?stayYear=&stayMonth=&stayDay=&dateUndecided=1&stayCount=1&roomCount=1&adultNum=2&minPrice=0&maxPrice=999999&mealType=&roomSingle=1&kenCd=130000&lrgCd=136200&smlCd=136205&distCd=01&roomCrack=200000&reShFlg=1&mvTabFlg=0&listId=0&screenId=UWW1402"
 
-# session = Capybara::Session.new(:poltergeist)
-# session.visit url
-# source = session.body
 
-doc = Nokogiri.HTML(open(url))
+class HotelsSearch
+  def initialize(name, url)
+    @name = name
+    @url  = url
+  end
 
-a = doc.css('.dpPanel > .search-result-cassette > .result-body > .hotel-planlist-link > a')
-puts a
-a.each {|href| p href.attribute('href')}
+
+  def shaping_cal(year: nil, month: nil)
+    prices = Array.new
+    year  ||= Date.today.year
+    month ||= Date.today.month
+    url = create_url(year, month)
+    cal = get_cal(url)
+    cal.each do |day, price, *other|
+      price = price_conversion(price)
+      daily_price = { date: Date.new(year.to_i, month.to_i, day.to_i), price: price.to_i}
+      prices << daily_price
+    end
+    prices
+  end
+
+  private
+  def price_conversion(price)
+    case price
+    when /^￥/
+      price.gsub(/￥|,/, '')
+    else price
+    end
+  end
+
+  def create_url(year, month)
+    parsed_url = Addressable::URI.parse(@url)
+    query = parsed_url.query_values
+    query['calMonth'] = month.to_s
+    query['calYear']  = year.to_s
+    parsed_url.query_values = query
+    parsed_url.to_s
+  end
+
+  def get_cal(url)
+    cal_info = Array.new
+    begin
+      options = Selenium::WebDriver::Chrome::Options.new
+      options.add_argument('--headless')
+      driver = Selenium::WebDriver.for :chrome, options: options
+      driver.get(url)
+      cal = driver.find_element(:class, 'details01-charge01').find_elements(:class, 'jlnpc-resv-cal__body-row')
+      cal.each do |c|
+        td = c.find_elements(:tag_name, 'td')
+        td = td.map{|e| e.text.split("\n").map(&:strip) }
+        cal_info.concat(td)
+        cal_info.delete_if(&:empty?)
+      end
+      cal_info
+    rescue => err
+      return nil
+    ensure
+      driver.quit
+    end
+  end
+end
+
+if __FILE__ == $0
+  require 'yaml'
+  require_relative '../../config/environment.rb'
+  hotels = YAML.load_file(File.join(config, 'hotels.yml'))
+  hotels.each do |name, info|
+    hs = HotelsSearch.new(name, info['url'])
+    p hs.shaping_cal
+  end
+end
