@@ -1,2 +1,3 @@
 app: bundle exec puma -e $APP_ENV
-#cron: bundle exec clockwork clock.rb
+db: docker-compose up
+cron: bundle exec clockwork clock.rb
