@@ -1,5 +1,4 @@
-# fuck fish
-fuck fish WebAPI
+# hotels search
 
 ## run development
 ### main
