@@ -16,8 +16,8 @@ class Base < Sinatra::Base
 
     set :server, :puma
     set :root, File.expand_path('../../', __dir__)
-    set :public_folder, File.join(root, 'app', 'dist')
-    set :views, File.join(root, 'app', 'dist')
+    set :public_folder, File.join(root, 'dist')
+    set :views, File.join(root,'dist')
     use Rack::PostBodyContentTypeParser
     enable :logging
   end
