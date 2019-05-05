@@ -67,5 +67,6 @@ if __FILE__ == $0
     plan_get = PlanGet.new(url)
     hotels.concat(plan_get.start)
   end
-  YAML.dump(hotels, open('hotel_plan.yml', 'w'))
+  file = open(File.join(config, 'hotel_plan.yml'), 'w')
+  YAML.dump(hotels, file)
 end
