@@ -11,7 +11,7 @@ http://localhost:4567/hotels_search/api
 http://localhost:8081
 
 # Deplotment
-- [Ruby(2.5.0)](https://www.ruby-lang.org/ja/)
+- [Ruby(2.6.2)](https://www.ruby-lang.org/ja/)
 - [sinatra](http://sinatrarb.com/)
 - [docker](https://www.docker.com/)
 - [docker-compose](https://docs.docker.com/compose/)
