@@ -3,14 +3,11 @@ require 'uri'
 require 'date'
 require 'addressable/uri'
 
-
-
 class HotelsSearch
   def initialize(name, url)
     @name = name
     @url  = url
   end
-
 
   def shaping_cal(year: nil, month: nil)
     prices = Array.new
@@ -70,9 +67,18 @@ end
 if __FILE__ == $0
   require 'yaml'
   require_relative '../../config/environment.rb'
-  hotels = YAML.load_file(File.join(config, 'hotels.yml'))
-  hotels.each do |name, info|
-    hs = HotelsSearch.new(name, info['url'])
-    p hs.shaping_cal
+  require_relative 'plan_get'
+  require 'date'
+
+  hotels = YAML.load_file('test.yml')
+  hotels.each do |hotel|
+    hotel[:plans].each do |plan|
+      hs = HotelsSearch.new(hotel[:name], plan[:url])
+      year  = Date.today.year
+      month = Date.today.month + 1
+      prices = hs.shaping_cal(month: month)
+      p prices
+      exit
+    end
   end
 end
