@@ -20,6 +20,8 @@ http://localhost:8081
 - [mongodb](https://www.mongodb.com/)
 - [mongoid](https://docs.mongodb.com/mongoid/current/)
 
+## Crawling
+- [selenium](https://seleniumhq.github.io/selenium/docs/api/rb/)
 
 # Usage
 ## install

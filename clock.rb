@@ -6,7 +6,6 @@ require 'active_support/duration'
 require_relative 'config/environment.rb'
 require_relative 'app/models/hotel.rb'
 require_relative 'lib/crawling/hotels_single.rb'
-require_relative 'lib/crawling/plan_get.rb'
 
 include Clockwork
 

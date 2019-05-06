@@ -42,7 +42,7 @@ export default class Home extends Vue {
       value: 'name'
     },
     { text: 'plan', value: 'plan' },
-    { text: '平均金額', value: 'fat' },
+    { text: '平均金額', value: 'average' },
   ];
 
   mounted(): void {

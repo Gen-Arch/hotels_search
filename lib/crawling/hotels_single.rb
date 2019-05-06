@@ -17,6 +17,7 @@ class HotelsSearch
     cal = get_cal(url)
     cal.each do |day, price, *other|
       price = price_conversion(price)
+      next if price.to_i == 0
       daily_price = { date: Date.new(year.to_i, month.to_i, day.to_i), price: price.to_i}
       prices << daily_price
     end
