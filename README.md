@@ -25,17 +25,18 @@ http://localhost:8081
 
 # Usage
 ## install
+### gem install
 ```
 bundle install
 ```
 
+### npm instal
+```
+cd front
+npm install
+```
+
 ## setup
-
-### create database
-```
-bundle exec rake crawling:update
-```
-
 ### create systemd file(.service&.target)
 ```
 bundle exec procsd create
@@ -60,6 +61,11 @@ bundle exec procsd restart
 ## enable service
 ```
 bundle exec procsd enable
+```
+
+# DB create
+```
+bundle exec rake crawling:update
 ```
 
 # debug
