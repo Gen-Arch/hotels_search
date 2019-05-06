@@ -30,6 +30,12 @@ bundle install
 ```
 
 ## setup
+
+### create database
+```
+bundle exec rake crawling:update
+```
+
 ### create systemd file(.service&.target)
 ```
 bundle exec procsd create
